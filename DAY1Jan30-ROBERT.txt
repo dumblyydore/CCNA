@@ -202,12 +202,12 @@ ephone-dn 8
 Ephone 1
   Mac-address ccd8.c1fb.09ff
   type 8945
-  button 1:1 2:3 3:2 4:4
+  button 1:8 2:7 3:6 4:5
   restart
 Ephone 2
   Mac-address ccd8.c1fb.0817
   type 8945
-  button 1:5 2:6 3:7 4:8
+  button 1:1 2:2 3:3 4:4
   restart  
 end
 
@@ -302,7 +302,7 @@ dial-peer voice 82 Voip
 @@@@@@
 !@@@EDGE ROUTE CONFIG
 config t
-   hostname EDGE-m
+   hostname EDGE-11
    enable secret pass
    service password-encryption
    no logging console
@@ -317,15 +317,15 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10.m.m.1 255.255.255.0
+     ip add 10.11.11.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0.m 255.255.255.0
+	 ip add 200.0.0.11 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add m.0.0.1 255.255.255.255
+	 ip add 11.0.0.1 255.255.255.255
  end
 
  !!!STATIC ROUTING FOR MININUM WAGERS: 575php/day
@@ -348,7 +348,7 @@ conf t
  ip route 10.72.0.0 255.255.0.0 200.0.0.72
  ip route 10.81.0.0 255.255.0.0 200.0.0.81
  ip route 10.82.0.0 255.255.0.0 200.0.0.82
- ip route 10._.0.0 255.255.0.0 10._._.4
+ ip route 10.11.0.0 255.255.0.0 10.11.11.4
  end
  
 *********************************************
@@ -356,19 +356,19 @@ Layer three/3 switch ROUTING = 300k up!!!
 @SWITCH/COREBABA
 conf t 
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._._.1
+ip route 0.0.0.0 0.0.0.0 10.11.11.1
 end
 
 @CUCM:DEFAULT ROUTING( 0.0.0.0 0.0.0.0) FOR CUCM:
 conf t
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._.100.4
+ip route 0.0.0.0 0.0.0.0 10.11.100.4
 end
 
 !How to Static Route windows Server:
 cmd
-route  add   10.0.0.0   mask   255.0.0.0    10._.1.4
-route  add  200.0.0.0   mask  255.255.255.0   10._.1.4
+route  add   10.0.0.0   mask   255.0.0.0    10.11.1.4
+route  add  200.0.0.0   mask  255.255.255.0   10.11.1.4
 
 ********************************************
 
